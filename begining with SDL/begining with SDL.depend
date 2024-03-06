@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1708930514 source:d:\begining with sdl\main.cpp
+	<windows.h>
+	<bits/stdc++.h>
+	<SDL.h>
+
+1709195823 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<Windows.h>
+	"defs.h"
+	"Graphics.h"
+	<bits/stdc++.h>
+
+1709186407 d:\baitap++\bighomework\begining with sdl\defs.h
+
+1709197581 d:\baitap++\bighomework\begining with sdl\graphics.h
+	<SDL.h>
+	<SDL_image.h>
+	"defs.h"
+
