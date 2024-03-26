@@ -4,19 +4,32 @@
 	<bits/stdc++.h>
 	<SDL.h>
 
-1709195823 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+1711057551 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+	"Game.h"
+
+1710974883 d:\baitap++\bighomework\begining with sdl\defs.h
+
+1711057567 d:\baitap++\bighomework\begining with sdl\graphics.h
+	"Game.h"
+
+1711053575 d:\baitap++\bighomework\begining with sdl\game.h
+	<SDL.h>
+	<SDL_image.h>
 	<iostream>
-	<SDL.h>
-	<SDL_image.h>
-	<Windows.h>
-	"defs.h"
+
+1711053572 source:d:\baitap++\bighomework\begining with sdl\game.cpp
+	"Game.h"
+	"Defs.h"
 	"Graphics.h"
-	<bits/stdc++.h>
+	"Object.h"
 
-1709186407 d:\baitap++\bighomework\begining with sdl\defs.h
+1711057605 source:d:\baitap++\bighomework\begining with sdl\graphics.cpp
+	"Graphics.h"
 
-1709197581 d:\baitap++\bighomework\begining with sdl\graphics.h
-	<SDL.h>
-	<SDL_image.h>
-	"defs.h"
+1711058088 d:\baitap++\bighomework\begining with sdl\object.h
+	"Game.h"
+
+1711057807 source:d:\baitap++\bighomework\begining with sdl\object.cpp
+	"Object.h"
+	"Graphics.h"
 
