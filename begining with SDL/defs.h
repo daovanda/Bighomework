@@ -3,7 +3,8 @@
 
 const int width = 800;
 const int height = 600;
-const char* title = "Game nhai faifai";
+//const int kich_thuoc = 32;
+const char* title = "Project Game";
 const int xPos = SDL_WINDOWPOS_CENTERED;
 const int yPos = SDL_WINDOWPOS_CENTERED;
 

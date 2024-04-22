@@ -4,7 +4,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
-
+#include<bits/stdc++.h>
+using namespace std;
 class Game {
 public:
     void init();
@@ -19,7 +20,7 @@ public:
 
     static SDL_Renderer* renderer;
     static SDL_Event event;
-
+    static vector <pair<int, int>> collision;
 private:
     bool isRunning = false;
     SDL_Window* window;

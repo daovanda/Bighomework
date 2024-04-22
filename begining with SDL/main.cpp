@@ -15,6 +15,7 @@ int main(int argc, char * argv[]) {
     while (GameCuaDa.running()) {
         frameStart = SDL_GetTicks();
 
+
         GameCuaDa.handleEvent();
         GameCuaDa.update();
         GameCuaDa.render();
