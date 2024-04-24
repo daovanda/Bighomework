@@ -38,6 +38,7 @@
 		<Unit filename="Graphics.cpp" />
 		<Unit filename="Graphics.h" />
 		<Unit filename="Map.h" />
+		<Unit filename="Map.txt" />
 		<Unit filename="Object.cpp" />
 		<Unit filename="Object.h" />
 		<Unit filename="main.cpp" />

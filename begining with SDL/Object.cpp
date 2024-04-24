@@ -17,113 +17,140 @@ Object::Object(const char* fileDir, int x, int y, double scale, vector<pair<int,
 }
 
 const Uint8* keyState = SDL_GetKeyboardState(NULL);
-
-
-// check mat dat
-bool Object::isGrounded() {
-    if (destRect.y >= 600 - 64*0.5) {
-
-        destRect.y = 600 - 64*0.5;
-        return true;
-    }
-    return false;
+void Object::attack(int x, int y){
+    destRect.x = x;
+}
+void Object::roto()
+{
+    angle += pi * 2.048;
+    Graphics::Draw(objTexture, src, destRect, angle);
 }
 
+void Object::Check_ground(){
+    bool check = false;
+    for(int i = 2; i < collision.size();i++){
+            //sua destRect.x +32
+        if( i <= 1) continue;
+        if ((destRect.x + 32 >= collision[i].first) && (destRect.x  <= collision[i].first + 64)
+            && (destRect.y + 30 <= collision[i].second))
 
+        {
+
+            Ground_height = collision[i].second;
+            check = true;
+            return;
+        }
+    }
+    if (!check)
+    {
+        //ontheground = false;
+        Ground_height = 600;
+    }
+
+}
+
+void Object::Gravity(){
+
+
+    if(!ontheground){
+            velocity.second = 3;
+            angle += pi * 2.048;
+    }
+    else{
+            velocity.second = 0;
+            angle = 0.0f;
+    }
+}
 void Object::update() {
-
     if (destRect.x + destRect.w >= 800 || destRect.x < 0)
         velocity.first *= -1;
 
-// check do cao
-    for(int i = 0; i < collision.size();i++){
-        if ((destRect.x + 32 >= collision[i].first) && (destRect.x + 32 <= collision[i].first + 64)
-            && (destRect.y + 32 <= collision[i].second) )
-        {
-            do_cao_mat_dat = 600 - collision[i].second;
-            break;
-        }
+// check nhay
+    Check_ground();
+    if( destRect.y +32 >= Ground_height  ){
+            destRect.y  = Ground_height - 33;
+            ontheground = true;
+    }else if (destRect.y + 33 < Ground_height)
+    {
+
+        ontheground = false;
     }
 
+    if(keyState[SDL_SCANCODE_SPACE] && ontheground){
+        ontheground = false;
+        jumpStart = destRect.y;
+        isJumping = true;
+    }
 
+    if( isJumping )
+    {
+        if(destRect.y >= jumpStart - jumpHeight){
+            destRect.y -=6;
+
+        }else{
+            isJumping = false;
+        }
+    }
+    Gravity();
 
 // check va cham
+
    bool collide =false;
-//   cout << collision.size() << "D" << endl;
+
+
    for(int i = 0; i < collision.size();i++){
-//        cout << collision[i].first<< " " << collision[i].second << " " << i << endl;
 
-        if ((destRect.x + 32 >= collision[i].first) && (destRect.x + 32 <= collision[i].first + 64)
-            && (destRect.y > collision[i].second) && (destRect.y <= collision[i].second + 64))
-        {
-            collide = true;
-            break;
 
-        }
-        if ((destRect.x + 32 >= collision[i].first) && (destRect.x + 32 <= collision[i].first + 64)
-            && (destRect.y + 32 > collision[i].second) && (destRect.y + 32 <= collision[i].second + 64))
+        if ((destRect.x + 32 >= collision[i].first + 5) && (destRect.x + 32 <= collision[i].first + 64 - 5)
+            && (destRect.y > collision[i].second + 10) && (destRect.y <= collision[i].second + 64))
         {
+            cout << "yes1" << endl;
             collide = true;
             break;
 
         }
 
-        if ((destRect.x >= collision[i].first) && (destRect.x <= collision[i].first + 64)
-            && (destRect.y > collision[i].second) && (destRect.y <= collision[i].second + 64))
+        else if ((destRect.x + 32 >= collision[i].first + 5) && (destRect.x + 32 <= collision[i].first + 64 - 5)
+            && (destRect.y + 32 > collision[i].second + 10) && (destRect.y + 32 <= collision[i].second + 64))
         {
+            cout << "yes2" << endl;
             collide = true;
             break;
 
         }
 
-        if ((destRect.x >= collision[i].first) && (destRect.x <= collision[i].first + 64)
-            && (destRect.y + 32 > collision[i].second) && (destRect.y + 32 <= collision[i].second + 64))
+        else if ((destRect.x >= collision[i].first + 5) && (destRect.x <= collision[i].first + 64 - 5)
+            && (destRect.y > collision[i].second + 10) && (destRect.y <= collision[i].second + 64))
         {
+            cout << "yes3" << endl;
+            collide = true;
+            break;
+
+        }
+
+        else if ((destRect.x >= collision[i].first + 5) && (destRect.x <= collision[i].first + 64 - 5)
+            && (destRect.y + 32 > collision[i].second + 10) && (destRect.y + 32 <= collision[i].second + 64))
+        {
+            cout << "yes4" << endl;
             collide = true;
             break;
 
         }
 
     }
+
     if(collide)
     {
         destRect.x = 0;
         destRect.y = 600 - 32;
+        ontheground = true;
+        isJumping = false;
     }
     else
     {
         destRect.x += velocity.first;
         destRect.y += velocity.second;
 
-    }
-
-// check nhay
-
-     if (keyState[SDL_SCANCODE_SPACE] && !isJumping && isGrounded()) {
-        cout << "yes" << endl;
-        jumpStart = destRect.y; // fix here
-        velocity.second = -3; // toc do roi
-        jump -= velocity.second;
-        jumpLimit = destRect.y -  jumpHeight;
-        isJumping = true;
-    }
-
-    if (!isJumping) {
-        angle = 0.0f;
-    }
-
-    // std::cout << jumpStart << " " << destRect.x << " " << jumpHeight << "\n";
-
-    if (jumpStart - destRect.y >= jumpHeight) {
-        velocity.second = 5;
-    }
-
-    if (isJumping) {
-        angle += pi * 2.048;
-        if (destRect.y > jumpStart) {
-            isJumping = false;
-            velocity.second = 0;
-        }
     }
 
 
