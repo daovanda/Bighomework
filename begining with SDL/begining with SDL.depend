@@ -4,40 +4,47 @@
 	<bits/stdc++.h>
 	<SDL.h>
 
-1713335096 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+1714038021 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+	"Game.h"
+	"Map.h"
+
+1714032107 d:\baitap++\bighomework\begining with sdl\defs.h
+
+1714037869 d:\baitap++\bighomework\begining with sdl\graphics.h
 	"Game.h"
 
-1713942614 d:\baitap++\bighomework\begining with sdl\defs.h
-
-1711007167 d:\baitap++\bighomework\begining with sdl\graphics.h
-	"Game.h"
-
-1713341215 d:\baitap++\bighomework\begining with sdl\game.h
+1714140130 d:\baitap++\bighomework\begining with sdl\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
 	<bits/stdc++.h>
 
-1713947458 source:d:\baitap++\bighomework\begining with sdl\game.cpp
+1714300564 source:d:\baitap++\bighomework\begining with sdl\game.cpp
 	"Game.h"
 	"Defs.h"
 	"Graphics.h"
 	"Object.h"
 	"Map.h"
+	<SDL_ttf.h>
 
-1711007205 source:d:\baitap++\bighomework\begining with sdl\graphics.cpp
+1714037894 source:d:\baitap++\bighomework\begining with sdl\graphics.cpp
 	"Graphics.h"
 
-1713946990 d:\baitap++\bighomework\begining with sdl\object.h
+1714300605 d:\baitap++\bighomework\begining with sdl\object.h
 	"Game.h"
 	"Defs.h"
 	<bits/stdc++.h>
+	<SDL_ttf.h>
 
-1713946990 source:d:\baitap++\bighomework\begining with sdl\object.cpp
+1714300500 source:d:\baitap++\bighomework\begining with sdl\object.cpp
 	"Object.h"
 	"Graphics.h"
+	"Map.h"
 	<bits/stdc++.h>
 
-1713941818 d:\baitap++\bighomework\begining with sdl\map.h
+1714299230 d:\baitap++\bighomework\begining with sdl\map.h
 	"Object.h"
+	"Game.h"
+	"Graphics.h"
+	<bits/stdc++.h>
 

@@ -3,32 +3,28 @@
 #include "Graphics.h"
 #include "Object.h"
 #include "Map.h"
-
+#include <SDL_ttf.h>
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-vector <pair<int,int>> Game::collision;
+
+vector<pair<int, int>> Game::collision;
+
 Object* Player = nullptr;
 
 
-Object* Vat1= nullptr;
-Object* Vat2_1= nullptr;
-Object* Vat3_0= nullptr;
-Object* Vat3= nullptr;
-Object* Vat3_1= nullptr;
-Object* Vat3_2= nullptr;
-Object* Vat3_3= nullptr;
-Object* Vat3_4= nullptr;
-Object* Vat3_5= nullptr;
-Object* Vat3_6= nullptr;
-Object* Vat3_7= nullptr;
-Object* Vat4_1= nullptr;
-Object* Rocket = nullptr;
+
+//Object* Rocket_x1 = nullptr;
 
 int x = 0, y = 700;
 
 void Game::init() {
     // Khoi tao game
+    if (TTF_Init() == -1) {
+            cout << "Khoi tao hien thi text that bat!\n";
+        }
+    else cout << "Khoi tao hien thi text thanh cong!\n";
+
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "Khoi tao he thong thanh cong!\n";
 
@@ -43,29 +39,16 @@ void Game::init() {
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         }
 
+
         isRunning = true;
     } else {
         isRunning = false;
         std::cout << "Khoi tao that bai!\n";
     }
 
-    Vat1 = new Object("Assets/Vat1.png", 250, 600 - 64, 1,collision); collision.push_back(make_pair(250,600 - 64));
-    Vat2_1 = new Object("Assets/Vat2.png", 250 - 32, 600 - 64*0.5, 0.5,collision); collision.push_back(make_pair(250 - 32,600 - 32));
-    Vat3_0 = new Object("Assets/Vat3.png", 800 - 64, 600 - 64, 1, collision); collision.push_back(make_pair(800 - 64, 600 - 64));
-    Vat3_1 = new Object("Assets/Vat3.png",800 - 64*2, 600 - 64, 1, collision); collision.push_back(make_pair(800 - 64*2, 600 - 64));
-    Vat3_2 = new Object("Assets/Vat3.png",800 - 64*3, 600 - 64, 1, collision); collision.push_back(make_pair(800 - 64*3, 600 - 64));
-    Vat3_3 = new Object("Assets/Vat3.png",800 - 64*3 - 32, 600 - 32, 0.5, collision); collision.push_back(make_pair(800 - 64*3 - 32, 600 - 32));
-    Vat3_4 = new Object("Assets/Vat3.png",800 - 64*5 - 32, 500 - 32, 1, collision); collision.push_back(make_pair(800 - 64*5 - 32, 500 - 32));
-    Vat3_5 = new Object("Assets/Vat3.png",800 - 64*8, 450 - 64, 1, collision); collision.push_back(make_pair(800 - 64*8, 450 - 64));
-    collision.push_back(make_pair(0, 400 - 64)); // cua vat 3_6
-    Vat3_6 = new Object("Assets/Vat3.png",0, 400 - 64, 1, collision);
-    collision.push_back(make_pair(800 - 64*9, 450 - 64)); // cua vat 3_7
-    Vat3_7 = new Object("Assets/Vat3.png", 800 - 64*9, 450 - 64, 1, collision);
-    collision.push_back(make_pair(800 - 64*5 - 120, 500 - 50)); // cua vat 4_1
-    Vat4_1 = new Object("Assets/Vat4.png",800 - 64*5 - 120, 500 - 50, 1, collision);
-    Player = new Object("Assets/Player.png", 0, 600 - 32, 0.5, collision);
-    Rocket = new Object("Assets/Player.png", 0, 600, 1, collision);
 
+    Player = new Object("Assets/Player.png", 0, 640 - 32, 0.5);
+//    Rocket_x1 = new Object("Assets/Rocket_x.png", 0 - 64,600 , 1, collision);
 
 
 }
@@ -86,6 +69,9 @@ void Game::handleEvent() {
 
 void Game::update() {
     Player->update();
+//    collision.push_back(make_pair(Rocket_x1->destRect.x,Rocket_x1->destRect.y));
+    check_collision();
+//    collision.pop_back();
 
 }
 
@@ -93,25 +79,68 @@ void Game::render() {
     SDL_RenderClear(renderer);
 
     // Render copy anh vao day
-    Player->render();
-    Vat1->render();
-    Vat2_1->render();
-    Vat3_0->render();
-    Vat3_1->render();
-    Vat3_2->render();
-    Vat3_3->render();
-    Vat3_4->render();
-    Vat3_5->render();
-    Vat3_6->render();
-    Vat3_7->render();
-    Vat4_1->roto();
-    Rocket->attack(x, y);
-    SDL_RenderPresent(renderer);
+     Player->render();
+
+//    if (Player->shot){
+//            Rocket_x1->attack_x();
+//    }
+//    Player->write("Da");
+//    Rocket_x1->write("Duy");
+//    Vat3_1->write("Hung");
+
 }
+void Game::check_collision(){
+
+
+   for(int i = 0; i < collision.size();i++){
+
+        if ((Player->destRect.x + 32 >= collision[i].first + 5) && (Player->destRect.x + 32 <= collision[i].first + 32 - 5)
+            && (Player->destRect.y > collision[i].second + 10) && (Player->destRect.y <= collision[i].second + 32 - 5))
+        {
+            cout << "yes1" << endl;
+            Player->collide = true;
+            break;
+            return;
+        }
+
+
+        else if ((Player->destRect.x + 32 >= collision[i].first + 5) && (Player->destRect.x + 32 <= collision[i].first + 32 - 5)
+            && (Player->destRect.y + 32 > collision[i].second + 10) && (Player->destRect.y + 32 <= collision[i].second + 32))
+        {
+            cout << "yes2" << endl;
+            Player->collide = true;
+            break;
+            return;
+        }
+
+        else if ((Player->destRect.x >= collision[i].first + 5) && (Player->destRect.x <= collision[i].first + 32 - 5)
+            && (Player->destRect.y > collision[i].second + 10) && (Player->destRect.y <= collision[i].second + 32 - 5))
+        {
+            cout << "yes3" << endl;
+            Player->collide = true;
+            break;
+            return;
+        }
+
+        else if ((Player->destRect.x >= collision[i].first + 5) && (Player->destRect.x <= collision[i].first + 32 - 5)
+            && (Player->destRect.y + 32 > collision[i].second + 10) && (Player->destRect.y + 32 <= collision[i].second + 32))
+        {
+            cout << "yes4" << endl;
+            Player->collide = true;
+            break;
+            return;
+        }
+
+    }
+
+
+}
+
 
 void Game::clean() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    TTF_Quit();
     std::cout << "Xoa game thanh cong!\n";
 }

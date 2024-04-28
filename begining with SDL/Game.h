@@ -13,14 +13,14 @@ public:
     void update();
     void render();
     void clean();
-
+    void check_collision();
     bool running() {
         return isRunning;
     }
-
     static SDL_Renderer* renderer;
     static SDL_Event event;
     static vector <pair<int, int>> collision;
+
 private:
     bool isRunning = false;
     SDL_Window* window;

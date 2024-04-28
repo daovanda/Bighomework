@@ -1,50 +1,66 @@
 #include "Object.h"
 #include "Graphics.h"
+#include "Map.h"
 #include<bits/stdc++.h>
 using namespace std;
 Object::Object() {};
 
 Object::~Object() {}
 
-Object::Object(const char* fileDir, int x, int y, double scale, vector<pair<int,int>> &v) {
+Object::Object(const char* fileDir, int x, int y, double scale) {
     objTexture = Graphics::loadTexture(fileDir);
-
-    for(auto x:v) collision.push_back(x);
 
     destRect.x = x;
     destRect.y = y;
     destRect.w = destRect.h = 64*scale;
 }
 
+
 const Uint8* keyState = SDL_GetKeyboardState(NULL);
-void Object::attack(int x, int y){
-    destRect.x = x;
+void Object::attack_x(){
+    Graphics::Draw(objTexture, destRect, angle);
+
+    destRect.y = 450 - 64*2;
+    destRect.x += 4;
+    if(destRect.x >= 800) destRect.x = 0;
+
+
+
+
+
 }
 void Object::roto()
 {
     angle += pi * 2.048;
-    Graphics::Draw(objTexture, src, destRect, angle);
+    Graphics::Draw(objTexture, destRect, angle);
 }
-
+vector <int> Object::block;
 void Object::Check_ground(){
     bool check = false;
-    for(int i = 2; i < collision.size();i++){
+    for(int i = 0; i < Game::collision.size();i++){
             //sua destRect.x +32
-        if( i <= 1) continue;
-        if ((destRect.x + 32 >= collision[i].first) && (destRect.x  <= collision[i].first + 64)
-            && (destRect.y + 30 <= collision[i].second))
+        bool check_block = false;
+        for(int j = 0; j < (int) block.size(); j++ ){
+            if(i == block[j]){
+                check_block = true;
+                break;
+            }
+        }
+        if ((destRect.x + 32 >= Game::collision[i].first) && (destRect.x  <= Game::collision[i].first + 32)
+            && (destRect.y + 25 <= Game::collision[i].second) && (check_block))
 
         {
 
-            Ground_height = collision[i].second;
+            Ground_height = Game::collision[i].second;
             check = true;
             return;
         }
+        check_block = false;
     }
     if (!check)
     {
         //ontheground = false;
-        Ground_height = 600;
+        Ground_height = 640;
     }
 
 }
@@ -62,7 +78,7 @@ void Object::Gravity(){
     }
 }
 void Object::update() {
-    if (destRect.x + destRect.w >= 800 || destRect.x < 0)
+    if (destRect.x + destRect.w >= 960 || destRect.x < 0)
         velocity.first *= -1;
 
 // check nhay
@@ -95,56 +111,15 @@ void Object::update() {
 
 // check va cham
 
-   bool collide =false;
 
-
-   for(int i = 0; i < collision.size();i++){
-
-
-        if ((destRect.x + 32 >= collision[i].first + 5) && (destRect.x + 32 <= collision[i].first + 64 - 5)
-            && (destRect.y > collision[i].second + 10) && (destRect.y <= collision[i].second + 64))
-        {
-            cout << "yes1" << endl;
-            collide = true;
-            break;
-
-        }
-
-        else if ((destRect.x + 32 >= collision[i].first + 5) && (destRect.x + 32 <= collision[i].first + 64 - 5)
-            && (destRect.y + 32 > collision[i].second + 10) && (destRect.y + 32 <= collision[i].second + 64))
-        {
-            cout << "yes2" << endl;
-            collide = true;
-            break;
-
-        }
-
-        else if ((destRect.x >= collision[i].first + 5) && (destRect.x <= collision[i].first + 64 - 5)
-            && (destRect.y > collision[i].second + 10) && (destRect.y <= collision[i].second + 64))
-        {
-            cout << "yes3" << endl;
-            collide = true;
-            break;
-
-        }
-
-        else if ((destRect.x >= collision[i].first + 5) && (destRect.x <= collision[i].first + 64 - 5)
-            && (destRect.y + 32 > collision[i].second + 10) && (destRect.y + 32 <= collision[i].second + 64))
-        {
-            cout << "yes4" << endl;
-            collide = true;
-            break;
-
-        }
-
-    }
 
     if(collide)
     {
         destRect.x = 0;
-        destRect.y = 600 - 32;
+        destRect.y = 960 - 32;
         ontheground = true;
         isJumping = false;
+        collide = false;
     }
     else
     {
@@ -154,8 +129,44 @@ void Object::update() {
     }
 
 
+    if(destRect.y <= 450 - 64){
+            shot = true;
+            cout << "now" << endl;
+    }
 }
 
 void Object::render() {
-    Graphics::Draw(objTexture, src, destRect, angle);
+    Graphics::Draw(objTexture, destRect, angle);
+}
+SDL_Texture* Object::renderText(const char* text,
+                            TTF_Font* font, SDL_Color textColor)
+    {
+        SDL_Surface* textSurface =
+                TTF_RenderText_Solid( font, text, textColor );
+        if( textSurface == nullptr ) {
+
+            return nullptr;
+        }
+
+        SDL_Texture* texture =
+                SDL_CreateTextureFromSurface( Game::renderer, textSurface );
+        if( texture == nullptr ) {
+
+        }
+        SDL_FreeSurface( textSurface );
+        return texture;
+    }
+    TTF_Font* Object::loadFont(const char* path, int size)
+    {
+        TTF_Font* gFont = TTF_OpenFont( path, size );
+        if (gFont == nullptr) {
+            return nullptr;
+        }
+    }
+void Object::write(const char* s)
+{
+    font = loadFont("Text_game/Merriweather-LightItalic.ttf", 100);
+    SDL_Color color = {255, 0, 0, 255};
+    text = renderText( s,font,color );
+    SDL_RenderCopy(Game::renderer, text, NULL, &destRect);
 }
