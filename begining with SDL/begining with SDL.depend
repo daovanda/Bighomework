@@ -19,7 +19,7 @@
 	<iostream>
 	<bits/stdc++.h>
 
-1714300564 source:d:\baitap++\bighomework\begining with sdl\game.cpp
+1714395283 source:d:\baitap++\bighomework\begining with sdl\game.cpp
 	"Game.h"
 	"Defs.h"
 	"Graphics.h"
@@ -30,16 +30,17 @@
 1714037894 source:d:\baitap++\bighomework\begining with sdl\graphics.cpp
 	"Graphics.h"
 
-1714300963 d:\baitap++\bighomework\begining with sdl\object.h
+1714363328 d:\baitap++\bighomework\begining with sdl\object.h
 	"Game.h"
 	"Defs.h"
 	<bits/stdc++.h>
 	<SDL_ttf.h>
 
-1714300500 source:d:\baitap++\bighomework\begining with sdl\object.cpp
+1714395927 source:d:\baitap++\bighomework\begining with sdl\object.cpp
 	"Object.h"
 	"Graphics.h"
 	"Map.h"
+	"Game.h"
 	<bits/stdc++.h>
 
 1714299230 d:\baitap++\bighomework\begining with sdl\map.h

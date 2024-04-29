@@ -11,10 +11,7 @@ SDL_Event Game::event;
 vector<pair<int, int>> Game::collision;
 
 Object* Player = nullptr;
-
-
-
-//Object* Rocket_x1 = nullptr;
+Object* Rocket_x1 = nullptr;
 
 int x = 0, y = 700;
 
@@ -48,7 +45,7 @@ void Game::init() {
 
 
     Player = new Object("Assets/Player.png", 0, 640 - 32, 0.5);
-//    Rocket_x1 = new Object("Assets/Rocket_x.png", 0 - 64,600 , 1, collision);
+    Rocket_x1 = new Object("Assets/Rocket_x.png", 0 - 32*2,600 , 0.5);
 
 
 }
@@ -69,9 +66,9 @@ void Game::handleEvent() {
 
 void Game::update() {
     Player->update();
-//    collision.push_back(make_pair(Rocket_x1->destRect.x,Rocket_x1->destRect.y));
+    collision.push_back(make_pair(Rocket_x1->destRect.x,Rocket_x1->destRect.y));
     check_collision();
-//    collision.pop_back();
+    collision.pop_back();
 
 }
 
@@ -81,9 +78,9 @@ void Game::render() {
     // Render copy anh vao day
      Player->render();
 
-//    if (Player->shot){
-//            Rocket_x1->attack_x();
-//    }
+    if (Player->shot){
+            Rocket_x1->attack_x();
+                }
 //    Player->write("Da");
 //    Rocket_x1->write("Duy");
 //    Vat3_1->write("Hung");
@@ -99,6 +96,7 @@ void Game::check_collision(){
         {
             cout << "yes1" << endl;
             Player->collide = true;
+
             break;
             return;
         }

@@ -1,6 +1,7 @@
 #include "Object.h"
 #include "Graphics.h"
 #include "Map.h"
+#include "Game.h"
 #include<bits/stdc++.h>
 using namespace std;
 Object::Object() {};
@@ -19,14 +20,15 @@ Object::Object(const char* fileDir, int x, int y, double scale) {
 const Uint8* keyState = SDL_GetKeyboardState(NULL);
 void Object::attack_x(){
     Graphics::Draw(objTexture, destRect, angle);
+    destRect.y = 320 - 32 + 32*3;
+    destRect.x += 2;
+    cout << shot << endl;
+    if(destRect.x >= 960)
+    {
 
-    destRect.y = 450 - 64*2;
-    destRect.x += 4;
-    if(destRect.x >= 800) destRect.x = 0;
+        destRect.x = 0;
 
-
-
-
+    }
 
 }
 void Object::roto()
@@ -46,7 +48,7 @@ void Object::Check_ground(){
                 break;
             }
         }
-        if ((destRect.x + 32 >= Game::collision[i].first) && (destRect.x  <= Game::collision[i].first + 32)
+        if ((destRect.x + 32 >= Game::collision[i].first) && (destRect.x <= Game::collision[i].first + 32)
             && (destRect.y + 25 <= Game::collision[i].second) && (check_block))
 
         {
@@ -129,9 +131,8 @@ void Object::update() {
     }
 
 
-    if(destRect.y <= 450 - 64){
-            shot = true;
-            cout << "now" << endl;
+    if(destRect.y <= 450 + 64 && destRect.x == 0 && !shot){
+        shot = true;
     }
 }
 

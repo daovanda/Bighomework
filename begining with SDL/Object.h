@@ -29,7 +29,7 @@ public:
     bool shot = false;
     bool isJumping = false;
     std::pair<int, int> velocity = {5, 4};
-    int jumpStart = 0, jumpHeight = 60;
+    int jumpStart = 0, jumpHeight = 62;
     int jumpLimit, jump = 0;
     int Ground_height = 640;
     bool collide=false;
