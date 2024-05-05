@@ -17,6 +17,7 @@ public:
     bool running() {
         return isRunning;
     }
+    bool You_win = false;
     static SDL_Renderer* renderer;
     static SDL_Event event;
     static vector <pair<int, int>> collision;
@@ -25,6 +26,7 @@ private:
     bool isRunning = false;
     SDL_Window* window;
     int cnt = 0;
+    int score = 100;
 };
 
 #endif // GAME_H

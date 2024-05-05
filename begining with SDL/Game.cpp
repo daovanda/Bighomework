@@ -4,7 +4,8 @@
 #include "Object.h"
 #include "Map.h"
 #include <SDL_ttf.h>
-
+#include <bits/stdc++.h>
+using namespace std;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
@@ -12,8 +13,13 @@ vector<pair<int, int>> Game::collision;
 
 Object* Player = nullptr;
 Object* Rocket_x1 = nullptr;
+Object* Stars = nullptr;
+Object* Door = nullptr;
+Object* Stars_nomal = nullptr;
+Object* Stars_gold_1 = nullptr;
+Object* Stars_gold_2 = nullptr;
+Object* Stars_gold_3 = nullptr;
 
-int x = 0, y = 700;
 
 void Game::init() {
     // Khoi tao game
@@ -46,8 +52,11 @@ void Game::init() {
 
     Player = new Object("Assets/Player.png", 0, 640 - 32, 0.5);
     Rocket_x1 = new Object("Assets/Rocket_x.png", 0 - 32*2,600 , 0.5);
-
-
+    Stars = new Object("Assets/Stars.png", 960 - 32*2, 640 - 8*32 - 16, 0.75);
+    Door = new Object("Assets/Door.png", 960 - 64, 0, 1);
+    Stars_gold_1 = new Object("Assets/Stars_gold.png", 480 - 32, 0, 0.5);
+    Stars_gold_2 = new Object("Assets/Stars_gold.png", 480 - 32 - 32, 0, 0.5);
+    Stars_gold_3 = new Object("Assets/Stars_gold.png", 480, 0, 0.5);
 }
 
 void Game::handleEvent() {
@@ -76,15 +85,27 @@ void Game::render() {
     SDL_RenderClear(renderer);
 
     // Render copy anh vao day
-     Player->render();
+    Player->render();
+    Door->render();
+    if(Player->Get_stars){
+        Stars->render();
 
-    if (Player->shot){
-            Rocket_x1->attack_x();
-                }
-//    Player->write("Da");
-//    Rocket_x1->write("Duy");
-//    Vat3_1->write("Hung");
-
+    }
+    if(Player->shot){
+        Rocket_x1->attack_x();
+    }
+    if(!Player->Get_stars){
+        Stars_gold_1->render();
+        Stars_gold_2->render();
+        Stars_gold_3->render();
+    }
+    if(!Player->You_win){
+        string s1 = "Your Score :";
+        string s2 = to_string(score);
+        Object::write( s1.c_str(), 0, -5, 50, 100);
+        Object::write( s2.c_str(), 100, -5, 50, 50);
+    }
+    if(Player->You_win) Game::You_win=true;
 }
 void Game::check_collision(){
 
@@ -96,7 +117,7 @@ void Game::check_collision(){
         {
             cout << "yes1" << endl;
             Player->collide = true;
-
+            score--;
             break;
             return;
         }
@@ -107,6 +128,7 @@ void Game::check_collision(){
         {
             cout << "yes2" << endl;
             Player->collide = true;
+            score--;
             break;
             return;
         }
@@ -116,6 +138,7 @@ void Game::check_collision(){
         {
             cout << "yes3" << endl;
             Player->collide = true;
+            score--;
             break;
             return;
         }
@@ -125,6 +148,7 @@ void Game::check_collision(){
         {
             cout << "yes4" << endl;
             Player->collide = true;
+            score--;
             break;
             return;
         }

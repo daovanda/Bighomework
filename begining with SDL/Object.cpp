@@ -2,11 +2,15 @@
 #include "Graphics.h"
 #include "Map.h"
 #include "Game.h"
+#include "Menu.h"
 #include<bits/stdc++.h>
 using namespace std;
-Object::Object() {};
 
+Object::Object() {};
 Object::~Object() {}
+SDL_Texture* Object::text;
+TTF_Font* Object::font;
+SDL_Rect Object::Rect;
 
 Object::Object(const char* fileDir, int x, int y, double scale) {
     objTexture = Graphics::loadTexture(fileDir);
@@ -17,25 +21,20 @@ Object::Object(const char* fileDir, int x, int y, double scale) {
 }
 
 
+
 const Uint8* keyState = SDL_GetKeyboardState(NULL);
 void Object::attack_x(){
     Graphics::Draw(objTexture, destRect, angle);
     destRect.y = 320 - 32 + 32*3;
     destRect.x += 2;
-    cout << shot << endl;
     if(destRect.x >= 960)
     {
-
-        destRect.x = 0;
-
+        shot = false;
+        destRect.x = 0 - 32*2;
     }
 
 }
-void Object::roto()
-{
-    angle += pi * 2.048;
-    Graphics::Draw(objTexture, destRect, angle);
-}
+
 vector <int> Object::block;
 void Object::Check_ground(){
     bool check = false;
@@ -82,7 +81,6 @@ void Object::Gravity(){
 void Object::update() {
     if (destRect.x + destRect.w >= 960 || destRect.x < 0)
         velocity.first *= -1;
-
 // check nhay
     Check_ground();
     if( destRect.y +32 >= Ground_height  ){
@@ -113,8 +111,6 @@ void Object::update() {
 
 // check va cham
 
-
-
     if(collide)
     {
         destRect.x = 0;
@@ -131,8 +127,16 @@ void Object::update() {
     }
 
 
-    if(destRect.y <= 450 + 64 && destRect.x == 0 && !shot){
+    if(destRect.y <= 450 + 64 && destRect.x == 0){
         shot = true;
+    }
+    if(destRect.x >= 960-32*2 - 16 && destRect.y >= 640-8*32-16&& destRect.y <= 640-7*32 + 16){
+        Get_stars = false;
+
+
+    }
+    if(destRect.y >= 0 && destRect.y <= 64 && destRect.x >= 960 - 32*2){
+        You_win = true;
     }
 }
 
@@ -164,10 +168,12 @@ SDL_Texture* Object::renderText(const char* text,
             return nullptr;
         }
     }
-void Object::write(const char* s)
+void Object::write(const char* s, int x, int y, int h, int w)
 {
     font = loadFont("Text_game/Merriweather-LightItalic.ttf", 100);
     SDL_Color color = {255, 0, 0, 255};
-    text = renderText( s,font,color );
-    SDL_RenderCopy(Game::renderer, text, NULL, &destRect);
+    text = renderText( s, font, color );
+    Rect.x = x; Rect.y = y;
+    Rect.h = h; Rect.w = w;
+    SDL_RenderCopy(Game::renderer, text, NULL, &Rect);
 }

@@ -45,7 +45,6 @@ public:
             anh.push_back(IMG_LoadTexture(Game::renderer, s.c_str()));
         }
         rect.w = rect.h =32;
-        cout << "load xong" << endl;
     }
     void renderMap()
     {
@@ -74,8 +73,6 @@ public:
 
         freopen("CON", "w", stdout);
 
-        //system("pause");
-        //cout << "done";
     }
 };
 
