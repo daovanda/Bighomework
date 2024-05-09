@@ -30,6 +30,7 @@ public:
         SDL_Event event;
         int x, y;
         while(true){
+
         if(!Menu1){
             SDL_RenderCopy(Game::renderer, Graphics::loadTexture("Assets/Menu_game.png"), NULL, NULL);
             SDL_RenderPresent(Game::renderer);
@@ -40,7 +41,6 @@ public:
         if(!Menu2) Menu_back = true;
         while (Menu_back) {
             SDL_GetMouseState(&x, &y);
-            cerr << x << ", " << y << endl;
             if(x>=30 && x <= 410){
                 if(y >= 240 && y <= 300) Write_menu("Play", 150, 240, 50, 150, color2);
                 else if(y >= 340 && y <= 400) Write_menu ("About Us", 80, 340, 50, 300, color2);
@@ -69,7 +69,6 @@ public:
                             SDL_Event p;
                             int m, n;
                             SDL_GetMouseState(&m, &n);
-                            cerr << m << ", " << n << endl;
                             if(m >= 45 && m <= 275 && n >= 225 && n <= 300) Write_menu("Door 1", 110, 225, 80, 100, color2);
                             else Write_menu("Door 1", 110, 225, 80, 100, color1);
                             if(m >= 670 && m <= 900 && n >= 525 && n <= 600) Write_menu("Back", 740, 525, 80, 100, color2);
@@ -98,5 +97,45 @@ public:
 
 
 }
+
+    bool Menu2_(){
+        bool Menu2_1=false;
+        bool Menu2_2=false;
+        bool Menu2_3=false;
+        bool Menu2_back=true;
+        SDL_Event event;
+        int x, y;
+        while(true){
+            if(!Menu2_1){
+
+            if(!Object::Get_stars){
+                SDL_RenderCopy(Game::renderer, Graphics::loadTexture("Assets/You_win_gold.png"), NULL, NULL);
+                SDL_RenderPresent(Game::renderer);
+            }
+            else{
+                SDL_RenderCopy(Game::renderer, Graphics::loadTexture("Assets/You_win_nomal.png"), NULL, NULL);
+                SDL_RenderPresent(Game::renderer);
+            }
+            }
+            if(!Menu2_2) Menu_back=true;
+            while(true){
+               //     cerr << x << " " << y << endl;
+                SDL_GetMouseState(&x, &y);
+                SDL_PollEvent(&event);
+                switch (event.type) {
+                    case SDL_MOUSEBUTTONDOWN:
+                        Menu2 = false;
+                        Menu_back = false;
+                        Menu1 = false;
+                        Game::starst = true;
+                        Game::end_game = false;
+
+                        return 1;
+                }
+
+        }
+    }
+    }
+
 };
 #endif // Menu_h

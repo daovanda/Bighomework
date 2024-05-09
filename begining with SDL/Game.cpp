@@ -10,6 +10,9 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
 vector<pair<int, int>> Game::collision;
+bool Game::starst = true;
+bool Game::end_game = false;
+int Game::score = 100;
 
 Object* Player = nullptr;
 Object* Rocket_x1 = nullptr;
@@ -91,9 +94,10 @@ void Game::render() {
         Stars->render();
 
     }
-    if(Player->shot){
+    if(Object::shot){
         Rocket_x1->attack_x();
     }
+
     if(!Player->Get_stars){
         Stars_gold_1->render();
         Stars_gold_2->render();
@@ -105,7 +109,6 @@ void Game::render() {
         Object::write( s1.c_str(), 0, -5, 50, 100);
         Object::write( s2.c_str(), 100, -5, 50, 50);
     }
-    if(Player->You_win) Game::You_win=true;
 }
 void Game::check_collision(){
 
@@ -117,7 +120,7 @@ void Game::check_collision(){
         {
             cout << "yes1" << endl;
             Player->collide = true;
-            score--;
+            Game::score--;
             break;
             return;
         }
@@ -128,7 +131,7 @@ void Game::check_collision(){
         {
             cout << "yes2" << endl;
             Player->collide = true;
-            score--;
+            Game::score--;
             break;
             return;
         }
@@ -138,7 +141,7 @@ void Game::check_collision(){
         {
             cout << "yes3" << endl;
             Player->collide = true;
-            score--;
+            Game::score--;
             break;
             return;
         }
@@ -148,7 +151,7 @@ void Game::check_collision(){
         {
             cout << "yes4" << endl;
             Player->collide = true;
-            score--;
+            Game::score--;
             break;
             return;
         }

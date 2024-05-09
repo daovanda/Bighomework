@@ -11,6 +11,9 @@ Object::~Object() {}
 SDL_Texture* Object::text;
 TTF_Font* Object::font;
 SDL_Rect Object::Rect;
+bool Object::You_win = false;
+bool Object::Get_stars = true;
+bool Object::shot = false;
 
 Object::Object(const char* fileDir, int x, int y, double scale) {
     objTexture = Graphics::loadTexture(fileDir);
@@ -27,6 +30,7 @@ void Object::attack_x(){
     Graphics::Draw(objTexture, destRect, angle);
     destRect.y = 320 - 32 + 32*3;
     destRect.x += 2;
+
     if(destRect.x >= 960)
     {
         shot = false;
@@ -79,6 +83,11 @@ void Object::Gravity(){
     }
 }
 void Object::update() {
+    if(You_win){
+        destRect.x = 0;
+        destRect.y = 640 - 32;
+        You_win = false;
+    }
     if (destRect.x + destRect.w >= 960 || destRect.x < 0)
         velocity.first *= -1;
 // check nhay
@@ -137,6 +146,9 @@ void Object::update() {
     }
     if(destRect.y >= 0 && destRect.y <= 64 && destRect.x >= 960 - 32*2){
         You_win = true;
+        shot = false;
+        Get_stars = true;
+        Game::end_game = true;
     }
 }
 

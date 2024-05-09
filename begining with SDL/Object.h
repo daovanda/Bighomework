@@ -19,12 +19,11 @@ public:
     ~Object();
 
     bool ontheground = true;
-    bool shot = false;
+    static bool shot;
     bool isJumping = false;
-    bool collide=false;
-    bool Get_stars = true;
-    bool You_win = false;
-
+    bool collide = false;
+    static bool Get_stars;
+    static bool You_win;
     void update();
     void render();
     void Check_ground();
