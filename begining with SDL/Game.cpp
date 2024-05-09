@@ -22,7 +22,11 @@ Object* Stars_nomal = nullptr;
 Object* Stars_gold_1 = nullptr;
 Object* Stars_gold_2 = nullptr;
 Object* Stars_gold_3 = nullptr;
-
+Object* Mui_gai_1 = nullptr;
+Object* Mui_gai_2 = nullptr;
+Object* Mui_gai_3 = nullptr;
+Object* Lock = nullptr;
+Object* Open = nullptr;
 
 void Game::init() {
     // Khoi tao game
@@ -60,6 +64,11 @@ void Game::init() {
     Stars_gold_1 = new Object("Assets/Stars_gold.png", 480 - 32, 0, 0.5);
     Stars_gold_2 = new Object("Assets/Stars_gold.png", 480 - 32 - 32, 0, 0.5);
     Stars_gold_3 = new Object("Assets/Stars_gold.png", 480, 0, 0.5);
+    Mui_gai_1 = new Object("Assets/Mui_gai.png", 480, 200 - 32 - 8, 0.5);
+    Mui_gai_2 = new Object("Assets/Mui_gai.png", 480, 200 - 64 - 8, 0.5);
+    Mui_gai_3 = new Object("Assets/Mui_gai.png", 480, 200 - 32*3 - 8, 0.5);
+    Lock = new Object("Assets/Lock.png", 0, 296 - 32, 0.5);
+    Open = new Object("Assets/Open.png", 0, 296 - 32, 0.5);
 }
 
 void Game::handleEvent() {
@@ -77,10 +86,25 @@ void Game::handleEvent() {
 }
 
 void Game::update() {
-    Player->update();
+    Player->update();// open = true
     collision.push_back(make_pair(Rocket_x1->destRect.x,Rocket_x1->destRect.y));
+    if(!Object::open){
+        collision.push_back(make_pair(480, 200 - 32 -8));
+        collision.push_back(make_pair(480, 200 - 64 -8));
+        collision.push_back(make_pair(480, 200 - 32*3 -8));
+    }
+
+
+    if(!Object::open) check_collision();
+
+    if(!Object::open){
+        collision.pop_back();
+        collision.pop_back();
+        collision.pop_back();
+    }
     check_collision();
     collision.pop_back();
+
 
 }
 
@@ -90,6 +114,19 @@ void Game::render() {
     // Render copy anh vao day
     Player->render();
     Door->render();
+    if(!Object::open){
+        Mui_gai_1->render();
+        Mui_gai_2->render();
+        Mui_gai_3->render();
+    }
+
+    if(Object::open){
+        Open->render();
+    }
+    else{
+        Lock->render();
+    }
+
     if(Player->Get_stars){
         Stars->render();
 
@@ -124,6 +161,8 @@ void Game::check_collision(){
             cout << "yes1" << endl;
             Player->collide = true;
             Game::score--;
+            Object::open = false;
+            Object::Get_stars = true;
             break;
             return;
         }
@@ -135,6 +174,8 @@ void Game::check_collision(){
             cout << "yes2" << endl;
             Player->collide = true;
             Game::score--;
+            Object::open = false;
+            Object::Get_stars = true;
             break;
             return;
         }
@@ -145,6 +186,8 @@ void Game::check_collision(){
             cout << "yes3" << endl;
             Player->collide = true;
             Game::score--;
+            Object::open = false;
+            Object::Get_stars = true;
             break;
             return;
         }
@@ -155,6 +198,8 @@ void Game::check_collision(){
             cout << "yes4" << endl;
             Player->collide = true;
             Game::score--;
+            Object::open = false;
+            Object::Get_stars = true;
             break;
             return;
         }

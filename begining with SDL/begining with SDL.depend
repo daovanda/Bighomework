@@ -4,7 +4,7 @@
 	<bits/stdc++.h>
 	<SDL.h>
 
-1715247056 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+1715274981 source:d:\baitap++\bighomework\begining with sdl\main.cpp
 	"Game.h"
 	"Map.h"
 	"Menu.h"
@@ -23,7 +23,7 @@
 	<iostream>
 	<bits/stdc++.h>
 
-1715225675 source:d:\baitap++\bighomework\begining with sdl\game.cpp
+1715266077 source:d:\baitap++\bighomework\begining with sdl\game.cpp
 	"Game.h"
 	"Defs.h"
 	"Graphics.h"
@@ -35,13 +35,13 @@
 1714037894 source:d:\baitap++\bighomework\begining with sdl\graphics.cpp
 	"Graphics.h"
 
-1715218212 d:\baitap++\bighomework\begining with sdl\object.h
+1715261351 d:\baitap++\bighomework\begining with sdl\object.h
 	"Game.h"
 	"Defs.h"
 	<bits/stdc++.h>
 	<SDL_ttf.h>
 
-1715244688 source:d:\baitap++\bighomework\begining with sdl\object.cpp
+1715262031 source:d:\baitap++\bighomework\begining with sdl\object.cpp
 	"Object.h"
 	"Graphics.h"
 	"Map.h"
@@ -63,7 +63,7 @@
 	"Graphics.h"
 	"Object.h"
 
-1715158778 d:\baitap++\bighomework\begining with sdl\audioplayer.h
+1715249730 d:\baitap++\bighomework\begining with sdl\audioplayer.h
 	<SDL_mixer.h>
 	<unordered_map>
 	<string>

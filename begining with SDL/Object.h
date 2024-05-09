@@ -24,6 +24,7 @@ public:
     bool collide = false;
     static bool Get_stars;
     static bool You_win;
+    static bool open;
     void update();
     void render();
     void Check_ground();

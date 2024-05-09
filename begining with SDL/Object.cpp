@@ -14,6 +14,7 @@ SDL_Rect Object::Rect;
 bool Object::You_win = false;
 bool Object::Get_stars = true;
 bool Object::shot = false;
+bool Object::open = false;
 
 Object::Object(const char* fileDir, int x, int y, double scale) {
     objTexture = Graphics::loadTexture(fileDir);
@@ -150,6 +151,10 @@ void Object::update() {
         You_win = true;
         shot = false;
         Game::end_game = true;
+        open = false;
+    }
+    if(destRect.x <= 32 && destRect.y <= 296 && destRect.y >= 296 - 48){
+        open = true;
     }
 }
 

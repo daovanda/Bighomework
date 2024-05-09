@@ -17,7 +17,7 @@ public:
             printf("Load music error: %s.\n", Mix_GetError());
             return;
         }
-        Mix_PlayMusic(temp, 0);
+        Mix_PlayMusic(temp, -1);
     }
 
     void PlaySFX(const std::string& dir)
