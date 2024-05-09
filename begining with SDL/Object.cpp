@@ -30,7 +30,9 @@ void Object::attack_x(){
     Graphics::Draw(objTexture, destRect, angle);
     destRect.y = 320 - 32 + 32*3;
     destRect.x += 2;
-
+    if(Game::end_game){
+        destRect.x = 0 - 32*2;
+    }
     if(destRect.x >= 960)
     {
         shot = false;
@@ -147,7 +149,6 @@ void Object::update() {
     if(destRect.y >= 0 && destRect.y <= 64 && destRect.x >= 960 - 32*2){
         You_win = true;
         shot = false;
-        Get_stars = true;
         Game::end_game = true;
     }
 }

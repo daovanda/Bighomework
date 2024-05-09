@@ -97,6 +97,9 @@ void Game::render() {
     if(Object::shot){
         Rocket_x1->attack_x();
     }
+    if(Game::end_game){
+        Rocket_x1->attack_x();
+    }
 
     if(!Player->Get_stars){
         Stars_gold_1->render();

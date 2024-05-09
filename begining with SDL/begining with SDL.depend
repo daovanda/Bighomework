@@ -4,7 +4,7 @@
 	<bits/stdc++.h>
 	<SDL.h>
 
-1715219242 source:d:\baitap++\bighomework\begining with sdl\main.cpp
+1715247056 source:d:\baitap++\bighomework\begining with sdl\main.cpp
 	"Game.h"
 	"Map.h"
 	"Menu.h"
@@ -23,7 +23,7 @@
 	<iostream>
 	<bits/stdc++.h>
 
-1715218728 source:d:\baitap++\bighomework\begining with sdl\game.cpp
+1715225675 source:d:\baitap++\bighomework\begining with sdl\game.cpp
 	"Game.h"
 	"Defs.h"
 	"Graphics.h"
@@ -41,7 +41,7 @@
 	<bits/stdc++.h>
 	<SDL_ttf.h>
 
-1715219419 source:d:\baitap++\bighomework\begining with sdl\object.cpp
+1715244688 source:d:\baitap++\bighomework\begining with sdl\object.cpp
 	"Object.h"
 	"Graphics.h"
 	"Map.h"
@@ -58,7 +58,7 @@
 1714637389 source:d:\baitap++\bighomework\begining with sdl\menu.cpp
 	<bits/stdc++.h>
 
-1715218952 d:\baitap++\bighomework\begining with sdl\menu.h
+1715247648 d:\baitap++\bighomework\begining with sdl\menu.h
 	"Game.h"
 	"Graphics.h"
 	"Object.h"

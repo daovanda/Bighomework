@@ -32,6 +32,7 @@ int main(int argc, char * argv[]) {
                 MenuGame.Menu1_();
                 Game::starst = false;
                 Game::end_game = false;
+                Object::Get_stars = true;
         }
         if(!Game::end_game){
             if(MenuGame.Menu1){

@@ -106,31 +106,47 @@ public:
         SDL_Event event;
         int x, y;
         while(true){
+            string s = to_string(Game::score);
             if(!Menu2_1){
 
             if(!Object::Get_stars){
                 SDL_RenderCopy(Game::renderer, Graphics::loadTexture("Assets/You_win_gold.png"), NULL, NULL);
                 SDL_RenderPresent(Game::renderer);
+                Write_menu(s.c_str(), 430, 390, 60, 100, color2);
             }
             else{
                 SDL_RenderCopy(Game::renderer, Graphics::loadTexture("Assets/You_win_nomal.png"), NULL, NULL);
                 SDL_RenderPresent(Game::renderer);
+                Write_menu(s.c_str(), 430, 390, 60, 100, color2);
             }
             }
             if(!Menu2_2) Menu_back=true;
             while(true){
-               //     cerr << x << " " << y << endl;
+                cerr << x << " " << y << endl;
                 SDL_GetMouseState(&x, &y);
                 SDL_PollEvent(&event);
+                if(x>=40 && x<=385 && y>=450 && y <= 515) Write_menu("Menu", 150, 440, 80, 120, color2);
+                else{
+                    Write_menu("Menu", 150, 440, 80, 120, color1);
+                }
+                if(x>=580 && x<=930 && y>= 450 && y <= 515) Write_menu("Next Door", 700, 440, 80, 140, color2);
+                else{
+
+                    Write_menu("Next Door", 700, 440, 80, 140, color1);
+                }
+
                 switch (event.type) {
                     case SDL_MOUSEBUTTONDOWN:
-                        Menu2 = false;
-                        Menu_back = false;
-                        Menu1 = false;
-                        Game::starst = true;
-                        Game::end_game = false;
+                        if(x>=40 && x<=385 && y>=450 && y <= 515){
+                            Menu2 = false;
+                            Menu_back = false;
+                            Menu1 = false;
+                            Game::starst = true;
+                            Game::end_game = false;
+                            Object::Get_stars = true;
+                            return 1;
+                        }
 
-                        return 1;
                 }
 
         }
