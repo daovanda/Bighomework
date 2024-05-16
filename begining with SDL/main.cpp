@@ -14,6 +14,7 @@ int main(int argc, char * argv[]) {
 
     Uint32 frameStart;
     int frameTime;
+    bool Pause = false;
 
     GameCuaDa.init();
     gameMap.loadMap();
@@ -32,6 +33,7 @@ int main(int argc, char * argv[]) {
                 Game::starst = false;
                 Game::end_game = false;
                 Object::Get_stars = true;
+
         }
         if(!Game::end_game){
             if(MenuGame.Menu1){
@@ -41,6 +43,7 @@ int main(int argc, char * argv[]) {
 
                 GameCuaDa.handleEvent();
                 GameCuaDa.update();
+                MenuGame.Menu_pause(Pause);
                 GameCuaDa.render();
                 gameMap.renderMap();
 
@@ -53,6 +56,7 @@ int main(int argc, char * argv[]) {
                 }
         }
         else{
+            MenuGame.Menu_score();
             MenuGame.Menu2_();
             Game::score = 100;
 

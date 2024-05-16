@@ -15,6 +15,7 @@ bool Object::You_win = false;
 bool Object::Get_stars = true;
 bool Object::shot = false;
 bool Object::open = false;
+bool Object::collide = false;
 
 Object::Object(const char* fileDir, int x, int y, double scale) {
     objTexture = Graphics::loadTexture(fileDir);
@@ -23,7 +24,6 @@ Object::Object(const char* fileDir, int x, int y, double scale) {
     destRect.y = y;
     destRect.w = destRect.h = 64*scale;
 }
-
 
 
 const Uint8* keyState = SDL_GetKeyboardState(NULL);
@@ -110,6 +110,7 @@ void Object::update() {
         isJumping = true;
     }
 
+
     if( isJumping )
     {
         if(destRect.y >= jumpStart - jumpHeight){
@@ -188,7 +189,7 @@ SDL_Texture* Object::renderText(const char* text,
     }
 void Object::write(const char* s, int x, int y, int h, int w)
 {
-    font = loadFont("Text_game/Merriweather-LightItalic.ttf", 100);
+    font = loadFont("Text_game/Oswald-Medium.ttf", 100);
     SDL_Color color = {255, 0, 0, 255};
     text = renderText( s, font, color );
     Rect.x = x; Rect.y = y;

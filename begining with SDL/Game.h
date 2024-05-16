@@ -22,7 +22,8 @@ public:
     static SDL_Renderer* renderer;
     static SDL_Event event;
     static vector <pair<int, int>> collision;
-    static int score;
+    static double score;
+    static int high_score;
 private:
     bool isRunning = false;
     SDL_Window* window;

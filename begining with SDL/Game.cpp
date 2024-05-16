@@ -12,7 +12,8 @@ SDL_Event Game::event;
 vector<pair<int, int>> Game::collision;
 bool Game::starst = true;
 bool Game::end_game = false;
-int Game::score = 100;
+double Game::score = 100;
+int Game::high_score = 0;
 
 Object* Player = nullptr;
 Object* Rocket_x1 = nullptr;
@@ -95,7 +96,9 @@ void Game::update() {
     }
 
 
-    if(!Object::open) check_collision();
+    if(!Object::open){
+            check_collision();
+    }
 
     if(!Object::open){
         collision.pop_back();
@@ -146,6 +149,12 @@ void Game::render() {
     if(!Player->You_win){
         string s1 = "Your Score :";
         string s2 = to_string(score);
+        for(int i = 0; i < (int) s2.size(); i++){
+            if(s2[i]=='.'){
+                s2 = s2.substr(0, i);
+                break;
+            }
+        }
         Object::write( s1.c_str(), 0, -5, 50, 100);
         Object::write( s2.c_str(), 100, -5, 50, 50);
     }
@@ -160,7 +169,8 @@ void Game::check_collision(){
         {
             cout << "yes1" << endl;
             Player->collide = true;
-            Game::score--;
+            Game::score-=0.5;
+//            if(score > high_score) high_score = score;
             Object::open = false;
             Object::Get_stars = true;
             break;
@@ -173,7 +183,8 @@ void Game::check_collision(){
         {
             cout << "yes2" << endl;
             Player->collide = true;
-            Game::score--;
+            Game::score-=0.5;
+//            if(score > high_score) high_score = score;
             Object::open = false;
             Object::Get_stars = true;
             break;
@@ -185,7 +196,8 @@ void Game::check_collision(){
         {
             cout << "yes3" << endl;
             Player->collide = true;
-            Game::score--;
+            Game::score-=0.5;
+//            if(score > high_score) high_score = score;
             Object::open = false;
             Object::Get_stars = true;
             break;
@@ -197,7 +209,8 @@ void Game::check_collision(){
         {
             cout << "yes4" << endl;
             Player->collide = true;
-            Game::score--;
+            Game::score-=0.5;
+//           if(score > high_score) high_score = score;
             Object::open = false;
             Object::Get_stars = true;
             break;

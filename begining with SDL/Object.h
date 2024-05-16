@@ -21,7 +21,7 @@ public:
     bool ontheground = true;
     static bool shot;
     bool isJumping = false;
-    bool collide = false;
+    static bool collide;// here
     static bool Get_stars;
     static bool You_win;
     static bool open;
@@ -30,12 +30,12 @@ public:
     void Check_ground();
     void attack_x();
     void Gravity();
-    static void write(const char* s, int x, int y, int w, int h); //
+    static void write(const char* s, int x, int y, int w, int h);
     static vector <int> block;
 
     SDL_Texture* objTexture;
     SDL_Rect destRect;
-    static SDL_Rect Rect;//
+    static SDL_Rect Rect;
 
     std::pair<int, int> velocity = {5, 4};
     int jumpStart = 0, jumpHeight = 62;
@@ -44,9 +44,9 @@ public:
     const double pi = M_PI;
 
     static SDL_Texture* renderText(const char* text, TTF_Font* font, SDL_Color textColor);
-    static TTF_Font* loadFont(const char* path, int size); //
-    static SDL_Texture* text;//
-    static TTF_Font* font;//
+    static TTF_Font* loadFont(const char* path, int size);
+    static SDL_Texture* text;
+    static TTF_Font* font;
 
 };
 #endif // Object_h
