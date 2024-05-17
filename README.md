@@ -1,7 +1,7 @@
 # Bighomework
 Họ Và Tên: Đào Văn Đà
 MSSV: 23021515
-Game: Geomatry Dash
+Game: Geomatry Dash (Trong file begining with SDL ạ)
 Giới Thiệu: Đây là một trò chơi do em tự thiết kế về mặt hình ảnh và nội dung. Một tựa game điều khiển một khối vuông di chuyển liên tục bằng việc nhấn nút SPACE để nhảy vượt qua các chướng ngại vật và qua màn.
 Gồm các tính năng sau:
 - Tên lửa phóng ra khi đi đến một địa điểm xác định.
