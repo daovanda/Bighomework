@@ -189,6 +189,7 @@ public:
                         Game::end_game = false;
                         Pause = false;
                         Object::collide = true;
+                        Object::open = false;
                         Game::score = 100;
                         return;
 
